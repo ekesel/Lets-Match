@@ -1,0 +1,100 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="A Matching App which lets you match with people by inputting your recent 5 browsing history! We will mail you whenever you find a match! Fun Way to Interact with people having same interests as you!">
+    <meta name="author" content="ekesel">
+    <link rel="icon" href="{% static 'logo.png' %}">
+
+    <title>{{headtitle}}</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/blog/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'Blog%20Template%20for%20Bootstrap_files/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'Blog%20Template%20for%20Bootstrap_files/css.css' %}" rel="stylesheet">
+    <link href="{% static 'Blog%20Template%20for%20Bootstrap_files/blog.css' %}" rel="stylesheet">
+  </head>
+
+  <body data-new-gr-c-s-check-loaded="8.871.0" data-gr-ext-installed="">
+
+    <div class="container">
+      <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+          <div class="col-4 pt-1">
+            <a class="text-muted" href="{% url 'index' %}">Let's Match App</a>
+          </div>
+          <div class="col-4 text-center">
+            <a class="blog-header-logo text-dark" href="{% url 'index' %}">Let's Match!</a>
+          </div>
+          <div class="col-4 d-flex justify-content-end align-items-center">
+            {%if user.is_authenticated %}
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'index' %}">Let's Match</a>
+            {%else%}
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'register' %}">Sign up</a>
+            {%endif%}
+          </div>
+        </div>
+      </header>
+
+      <div class="nav-scroller py-1 mb-2">
+        <nav class="nav d-flex justify-content-between">
+          <a class="p-2 text-muted" href="{% url 'contact' %}">Contact Us</a>
+          {%if user.is_authenticated %}
+          <a class="p-2 text-muted" href="{% url 'index' %}">Let's Match</a>
+          <a class="p-2 text-muted" href="{% url 'logouts' %}">Logout</a>
+          {%else%}
+          <a class="p-2 text-muted" href="{% url 'login'%}">Login</a>
+          {% endif%}
+        </nav>
+      </div>
+      {% include 'messages.html' %}
+<form method="POST">
+    {%csrf_token%}
+    <div class="form-row">
+      <div class="col-md-6 mb-3">
+        <label for="validationServer03">Email</label>
+        <input type="email" name="email" class="form-control is-invalid" id="validationServer03" placeholder="Email" required>
+        <div class="invalid-feedback">
+          Please provide a valid Email.
+        </div>
+      </div>
+      <div class="col-md-3 mb-3">
+        <label for="validationServer05">Message</label>
+        <input type="text" name="message" class="form-control is-invalid" id="validationServer05" placeholder="Enter your Message" required>
+        <div class="valid-feedback">
+          Great.
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary" type="submit">Submit</button>
+  </form>
+  <footer class="blog-footer">
+    <p>Lets Match built by <a href="#">Eke Sel</a> with <a href="#">Django and Bootstrap</a>.</p>
+    <p>
+      <a href="#">Back to top</a>
+    </p>
+  </footer>
+
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <script src="{% static 'Blog%20Template%20for%20Bootstrap_files/jquery-3.js' %}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+  <script src="{% static 'Blog%20Template%20for%20Bootstrap_files/popper.js' %}"></script>
+  <script src="{% static 'Blog%20Template%20for%20Bootstrap_files/bootstrap.js' %}"></script>
+  <script src="{% static 'Blog%20Template%20for%20Bootstrap_files/holder.js' %}"></script>
+  <script>
+    Holder.addTheme('thumb', {
+      bg: '#55595c',
+      fg: '#eceeef',
+      text: 'Thumbnail'
+    });
+  </script>
+
+
+<svg xmlns="http://www.w3.org/2000/svg" width="200" height="250" viewBox="0 0 200 250" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="13" style="font-weight:bold;font-size:13pt;font-family:Arial, Helvetica, Open Sans, sans-serif">Thumbnail</text></svg></body></html>

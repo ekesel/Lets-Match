@@ -1,0 +1,155 @@
+{%load static %}
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="A Matching App which lets you match with people by inputting your recent 5 browsing history! We will mail you whenever you find a match! Fun Way to Interact with people having same interests as you!">
+    <meta name="author" content="ekesel">
+    <link rel="icon" href="{% static 'logo.png' %}">
+
+    <title>{{headtitle}}</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.1/examples/blog/">
+
+    <!-- Bootstrap core CSS -->
+    <link href="{% static 'Blog%20Template%20for%20Bootstrap_files/bootstrap.css' %}" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="{% static 'Blog%20Template%20for%20Bootstrap_files/css.css' %}" rel="stylesheet">
+    <link href="{% static 'Blog%20Template%20for%20Bootstrap_files/blog.css' %}" rel="stylesheet">
+  </head>
+
+  <body data-new-gr-c-s-check-loaded="8.871.0" data-gr-ext-installed="">
+
+    <div class="container">
+      <header class="blog-header py-3">
+        <div class="row flex-nowrap justify-content-between align-items-center">
+          <div class="col-4 pt-1">
+            <a class="text-muted" href="{% url 'index' %}">Let's Match App</a>
+          </div>
+          <div class="col-4 text-center">
+            <a class="blog-header-logo text-dark" href="{% url 'index' %}">Let's Match!</a>
+          </div>
+          <div class="col-4 d-flex justify-content-end align-items-center">
+            {%if user.is_authenticated %}
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'index' %}">Let's Match</a>
+            {%else%}
+            <a class="btn btn-sm btn-outline-secondary" href="{% url 'register' %}">Sign up</a>
+            {%endif%}
+          </div>
+        </div>
+      </header>
+
+      <div class="nav-scroller py-1 mb-2">
+        <nav class="nav d-flex justify-content-between">
+          <a class="p-2 text-muted" href="{% url 'contact' %}">Contact Us</a>
+          {%if user.is_authenticated %}
+          <a class="p-2 text-muted" href="{% url 'index' %}">Let's Match</a>
+          <a class="p-2 text-muted" href="{% url 'logouts' %}">Logout</a>
+          {%else%}
+          <a class="p-2 text-muted" href="{% url 'login'%}">Login</a>
+          {% endif%}
+        </nav>
+      </div>
+      {% include 'messages.html' %}
+      <div class="jumbotron p-3 p-md-5 text-white rounded bg-primary">
+        <div class="col-md-6 px-0">
+          <h1 class="display-4 font-italic">{{user.username}},</h1>
+          <p class="lead my-3">Instagram: {{history.instaid}},</p>
+          <p class="lead my-3">A Matching App which lets you match with people by inputting your recent 5 browsing history! We will mail you whenever you find a match! Fun Way to Interact with people having same interests as you!</p>
+        </div>
+      </div>
+      <div class="jumbotron p-3 p-md-5 text-white rounded bg-success">
+        <div class="col-md-6 px-0">
+          <h2 class="display-4 font-italic">Your Previous Saved History</h2>
+          <p class="lead my-3">1. {{history.one}}</p>
+          <p class="lead my-3">2. {{history.two}}</p>
+          <p class="lead my-3">3. {{history.three}}</p>
+          <p class="lead my-3">4. {{history.four}}</p>
+          <p class="lead my-3">5. {{history.five}}</p>
+        </div>
+      </div>
+      <div class="jumbotron p-3 p-md-5 text-white rounded bg-info">
+        <div class="col-md-6 px-0">
+          <h5 class="font-italic">Submit Your Recent 5 Browser History to get a Match!</h5>
+          <form action="" method="post">
+            {%csrf_token%}
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <p class="lead my-3">Instagram ID</p>
+              <input type="text" name="instaid" id="instaid">
+              <p class="lead my-3">Mobile Number</p>
+              <input type="text" name="mobno" id="mobno">
+              <p class="lead my-3">First Recent Browser History</p>
+              <input type="text" name="one" id="one">
+              <p class="lead my-3">Second Recent Browser History</p>
+              <input type="text" name="two" id="two">
+              <p class="lead my-3">Third Recent Browser History</p>
+              <input type="text" name="three" id="three">
+              <p class="lead my-3">Fourth Recent Browser History</p>
+              <input type="text" name="four" id="four">
+              <p class="lead my-3">Fifth Recent Browser History</p>
+              <input type="text" name="five" id="five">
+              </div>
+              </div>
+              <input type="submit" value="Submit!">
+          </form>
+        </div>
+      </div>
+<div class="jumbotron p-3 p-md-5 text-white rounded bg-danger">
+    <div class="col-md-6 px-0">
+      <h1 class="display-4 font-italic">Your Current Matches!</h1>
+      {%for found in find %}
+      <p class="lead my-3">Instagram: {{found.instaid}}</p>
+      <p class="lead my-3">Mobile Number: {{found.mobno}}</p>
+      <br><hr>
+      {%endfor%}
+    </div>
+  </div>
+<main role="main" class="container">
+  <div class="row">
+        <aside class="col-md-4 blog-sidebar">
+          <div class="p-3 mb-3 bg-light rounded">
+            <h4 class="font-italic">Contact</h4>
+            <p class="mb-0"><a href="{% url 'contact' %}">Click Here!</a></p>
+          </div>
+
+          <div class="p-3">
+            <h4 class="font-italic">Elsewhere</h4>
+            <ol class="list-unstyled">
+              <li><a href="https://github.com/ekesel/">GitHub</a></li>
+              <li><a href="instagram.com/eke.sel/">Instagram</a></li>
+              <li><a href="facebook.com/ekaanshsahni">Facebook</a></li>
+            </ol>
+          </div>
+        </aside><!-- /.blog-sidebar -->
+
+      </div><!-- /.row -->
+
+    </main><!-- /.container -->
+    <footer class="blog-footer">
+        <p>Lets Match built by <a href="#">Eke Sel</a> with <a href="#">Django and Bootstrap</a>.</p>
+        <p>
+          <a href="#">Back to top</a>
+        </p>
+      </footer>
+    
+      <!-- Bootstrap core JavaScript
+      ================================================== -->
+      <!-- Placed at the end of the document so the pages load faster -->
+      <script src="{% static 'Blog%20Template%20for%20Bootstrap_files/jquery-3.js' %}" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <script>window.jQuery || document.write('<script src="../../assets/js/vendor/jquery-slim.min.js"><\/script>')</script>
+      <script src="{% static 'Blog%20Template%20for%20Bootstrap_files/popper.js' %}"></script>
+      <script src="{% static 'Blog%20Template%20for%20Bootstrap_files/bootstrap.js' %}"></script>
+      <script src="{% static 'Blog%20Template%20for%20Bootstrap_files/holder.js' %}"></script>
+      <script>
+        Holder.addTheme('thumb', {
+          bg: '#55595c',
+          fg: '#eceeef',
+          text: 'Thumbnail'
+        });
+      </script>
+    
+    
+    <svg xmlns="http://www.w3.org/2000/svg" width="200" height="250" viewBox="0 0 200 250" preserveAspectRatio="none" style="display: none; visibility: hidden; position: absolute; top: -100%; left: -100%;"><defs><style type="text/css"></style></defs><text x="0" y="13" style="font-weight:bold;font-size:13pt;font-family:Arial, Helvetica, Open Sans, sans-serif">Thumbnail</text></svg></body></html>
